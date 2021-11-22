@@ -3,27 +3,52 @@
 final class SignInInteractor
 {
     const FAILED_MESSAGE = "メールアドレスまたは<br />パスワードが間違っています";
+    const SUCCESS_MESSAGE = "ログインしました";
 
-    private $useCaseInput;
+    private $userDao;
+    private $input;
 
-    public function __construct(SignInInput $useCaseInput)
+    public function __construct(SignInInput $input)
     {
-        $this->useCaseInput = $useCaseInput;
+        $this->userDao = new UserDao();
+        $this->input = $input;
     }
 
     public function handler(): SignInOutput
     {
-        $userDao = new UserDao();
-        $user = $userDao->findByMail($this->useCaseInput->email());
+        $user = $this->findUser();
 
-        if (is_null($user)) {
+        if ($this->notExistsUser($user)) {
             return new SignInOutput(false, self::FAILED_MESSAGE);
         }
 
-        if (!password_verify($this->useCaseInput->password()->value(), $user["password"])) {
+        if ($this->isInvalidPassword($user['password'])) {
             return new SignInOutput(false, self::FAILED_MESSAGE);
         }
 
-        return new SignInOutput(true, $user);
+        $this->saveSession($user);
+
+        return new SignInOutput(true, self::SUCCESS_MESSAGE);
+    }
+
+    private function findUser(): array
+    {
+        return $this->userDao->findByMail($this->input->email());
+    }
+
+    private function notExistsUser(?array $user): bool
+    {
+        return is_null($user);
+    }
+
+    private function isInvalidPassword(string $password): bool
+    {
+        return !password_verify($this->input->password()->value(), $password);
+    }
+
+    private function saveSession(array $user): void
+    {
+        $_SESSION['user']['id'] = $user['id'];
+        $_SESSION['user']['name'] = $user['name'];
     }
 }

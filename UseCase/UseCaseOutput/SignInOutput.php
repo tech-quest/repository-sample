@@ -3,11 +3,12 @@
 final class SignInOutput
 {
     private $isSuccess;
+    private $message;
     
-    public function __construct(bool $isSuccess, string | array $signInResult)
+    public function __construct(bool $isSuccess, string $message)
     {
         $this->isSuccess = $isSuccess;
-        $this->signInResult = $signInResult;
+        $this->message = $message;
     }
     
     public function isSuccess(): bool
@@ -15,8 +16,8 @@ final class SignInOutput
       return $this->isSuccess;
     }
 
-    public function signInResult(): string | array
+    public function message(): string
     {
-      return $this->signInResult;
+      return $this->message;
     }
 }

@@ -20,10 +20,8 @@ $useCase = new SignInInteractor($useCaseInput);
 $useCaseOutput = $useCase->handler();
 
 if ($useCaseOutput->isSuccess()) {
-    $_SESSION['formInputs']['userId'] = $useCaseOutput->signInResult()['id'];
-    $_SESSION['formInputs']['userName'] = $useCaseOutput->signInResult()['user_name'];;
     redirect("../index.php");
 } else {
-    $_SESSION['errors'][] = $useCaseOutput->signInResult();
+    $_SESSION['errors'][] = $useCaseOutput->message();
     redirect("./user/signin.php");
 }

@@ -9,8 +9,8 @@ unset($_SESSION['errors']);
 // $formInputs = $session->getFormInputs();
 // $userName = $formInputs['userName'] ?? '';
 // $mail = $formInputs['mail'] ?? '';
-$userName = $_SESSION['formInputs']['userName'] ?? '';
-$mail = $_SESSION['formInputs']['mail'] ?? '';
+$userName = $_SESSION['user']['name'] ?? '';
+$mail = $_SESSION['user']['mail'] ?? '';
 ?>
 
 <!DOCTYPE html>

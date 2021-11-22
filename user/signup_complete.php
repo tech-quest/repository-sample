@@ -12,8 +12,8 @@ if (empty($password) || empty($confirmPassword)) $_SESSION['errors'][] = "パス
 if ($password !== $confirmPassword) $_SESSION['errors'][] = "パスワードが一致しません";
 
 if (!empty($_SESSION['errors'])) {
-  $_SESSION['formInputs']['userName'] = $userName;
-  $_SESSION['formInputs']['mail'] = $mail;
+  $_SESSION['user']['name'] = $userName;
+  $_SESSION['user']['mail'] = $mail;
   redirect('/dao-sample/user/signup.php');
 }
 
