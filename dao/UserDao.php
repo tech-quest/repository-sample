@@ -13,9 +13,9 @@ final class UserDao
 		}
 	}
 
-	public function create(UserName $name, UserEmail $mail, UserPassword $password): void
+	public function create(UserName $name, Email $mail, InputPassword $password): void
 	{
-		$hashedPassword = password_hash($password->value(), PASSWORD_DEFAULT);
+		$hashedPassword = new HashedPassword($password->hash());
 
 		$sql = sprintf(
 			"INSERT INTO %s (name, mail, password) VALUES (:name, :mail, :password)",
@@ -28,7 +28,7 @@ final class UserDao
 		$statement->execute();
 	}
 
-	public function findByMail(UserEmail $mail): ?array
+	public function findByMail(Email $mail): ?array
 	{
 		$sql = sprintf(
 			"SELECT * FROM %s WHERE mail = :mail",

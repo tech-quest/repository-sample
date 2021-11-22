@@ -1,6 +1,6 @@
 <?php
 
-final class UserEmail
+final class HashedPassword
 {
     private $value;
 
@@ -11,6 +11,6 @@ final class UserEmail
 
     public function value(): string
     {
-      return $this->value;
+        return $this->value;
     }
 }

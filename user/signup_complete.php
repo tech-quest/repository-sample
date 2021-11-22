@@ -18,8 +18,8 @@ if (!empty($_SESSION['errors'])) {
 }
 
 $userName = new UserName($userName);
-$userEmail = new UserEmail($mail);
-$userPassword = new UserPassword($password);
+$userEmail = new Email($mail);
+$userPassword = new InputPassword($password);
 $useCaseInput = new SignUpInput($userName, $userEmail, $userPassword);
 $useCase = new SignUpInteractor($useCaseInput);
 $useCaseOutput = $useCase->handler();

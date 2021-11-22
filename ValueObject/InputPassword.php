@@ -1,6 +1,6 @@
 <?php
 
-final class UserPassword
+final class InputPassword
 {
   private $value;
 
@@ -12,5 +12,10 @@ final class UserPassword
   public function value(): string
   {
     return $this->value;
+  }
+
+  public function hash(): string
+  {
+    return password_hash($this->value, PASSWORD_DEFAULT);
   }
 }

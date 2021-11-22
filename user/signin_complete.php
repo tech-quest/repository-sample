@@ -13,9 +13,9 @@ if (empty($mail) || empty($password)) {
     redirect("./user/signin.php");
 }
 
-$userEmail = new UserEmail($mail);
-$userPassword = new UserPassword($password);
-$useCaseInput = new SignInInput($userEmail, $userPassword);
+$userEmail = new Email($mail);
+$inputPassword = new InputPassword($password);
+$useCaseInput = new SignInInput($userEmail, $inputPassword);
 $useCase = new SignInInteractor($useCaseInput);
 $useCaseOutput = $useCase->handler();
 
