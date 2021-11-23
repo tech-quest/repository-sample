@@ -1,10 +1,26 @@
 <?php
 
+/**
+ * ユーザー登録ユースケースの返り値
+ */
 final class SignUpOutput
 {
+    /**
+     * @var bool
+     */
     private $isSuccess;
+
+    /**
+     * @var string
+     */
     private $message;
 
+    /**
+     * コンストラクタ
+     *
+     * @param boolean $isSuccess
+     * @param string $message
+     */
     public function __construct(bool $isSuccess, string $message)
     {
         $this->isSuccess = $isSuccess;

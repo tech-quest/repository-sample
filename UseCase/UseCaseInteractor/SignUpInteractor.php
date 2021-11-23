@@ -1,27 +1,74 @@
 <?php
 
+/**
+ * ユーザー登録ユースケース
+ */
 final class SignUpInteractor
 {
   const ALLREADY_EXISTS_MESSAGE = "すでに登録済みのメールアドレスです";
   const COMPLETED_MESSAGE = "登録が完了しました";
 
-  private $useCaseInput;
+  /**
+   * @var SignUpInput
+   */
+  private $input;
 
-  public function __construct(SignUpInput $useCaseInput)
+  /**
+   * コンストラクタ
+   *
+   * @param SignUpInput $input
+   */
+  public function __construct(SignUpInput $input)
   {
-    $this->useCaseInput = $useCaseInput;
+    $this->userDao = new UserDao();
+    $this->input = $input;
   }
 
+  /**
+   * ユーザー登録処理
+   *
+   * @return SignUpOutput
+   */
   public function handler(): SignUpOutput
   {
-    $userDao = new UserDao();
-    $user = $userDao->findByMail($this->useCaseInput->email());
+    $user = $this->findUser();
 
-    if (!is_null($user)) {
+    if ($this->isExistsUser($user)) {
       return new SignUpOutput(false, self::ALLREADY_EXISTS_MESSAGE);
     }
 
-    $userDao->create($this->useCaseInput->name(), $this->useCaseInput->email(), $this->useCaseInput->password());
+    $this->signup();
     return new SignUpOutput(true, self::COMPLETED_MESSAGE);
+  }
+
+  /**
+   * ユーザーを入力されたメールアドレスで検索する
+   *
+   * @return array
+   */
+  private function findUser(): array
+  {
+    return $this->userDao->findByMail($this->input->email());
+  }
+
+  /**
+   * ユーザーが存在するかどうか
+   *
+   * @param array|null $user
+   * @return boolean
+   */
+  private function isExistsUser(?array $user): bool
+  {
+    return !is_null($user);
+  }
+
+  /**
+   * ユーザーを登録する
+   *
+   * @return void
+   */
+  private function signup(): void
+  {
+    $this->userDao->create($this->input->name(), $this->input->email(), $this->input->password());
   }
 }
