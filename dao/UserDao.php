@@ -1,9 +1,21 @@
 <?php
+
+/**
+ * ユーザー情報を操作するDAO
+ */
 final class UserDao
 {
 	const TABLE_NAME = 'users';
+
+	/**
+	 * @var [type]
+	 */
 	private $pdo;
 
+	/**
+	 * コンストラクタ
+	 * @param PDO $pdo
+	 */
 	public function __construct()
 	{
 		try {
@@ -13,6 +25,12 @@ final class UserDao
 		}
 	}
 
+	/**
+	 * ユーザーを追加する
+	 * @param  UserName $name
+	 * @param  Email $mail
+	 * @param  InputPassword $password
+	 */
 	public function create(UserName $name, Email $mail, InputPassword $password): void
 	{
 		$hashedPassword = $password->hash();
@@ -28,6 +46,11 @@ final class UserDao
 		$statement->execute();
 	}
 
+	/**
+	 * ユーザーを検索する
+	 * @param  Email $mail
+	 * @return array | null
+	 */
 	public function findByMail(Email $mail): ?array
 	{
 		$sql = sprintf(
