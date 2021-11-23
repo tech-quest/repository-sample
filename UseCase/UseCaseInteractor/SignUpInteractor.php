@@ -46,7 +46,7 @@ final class SignUpInteractor
    *
    * @return array
    */
-  private function findUser(): array
+  private function findUser(): User
   {
     return $this->userDao->findByMail($this->input->email());
   }
@@ -57,7 +57,7 @@ final class SignUpInteractor
    * @param array|null $user
    * @return boolean
    */
-  private function isExistsUser(?array $user): bool
+  private function isExistsUser(?User $user): bool
   {
     return !is_null($user);
   }
