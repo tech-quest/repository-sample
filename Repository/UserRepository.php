@@ -16,10 +16,13 @@ final class UserRepository
   {
     $userMapper = $this->userDao->findByMail($email);
 
-    if ($this->notExistsUser($userMapper)) {
-      return null;
-    }
-    return new User(new UserId($userMapper['id']), new UserName($userMapper['name']), new Email($userMapper['email']), new HashedPassword($userMapper['password']));
+    return ($this->notExistsUser($userMapper)) 
+      ? null 
+      : new User(
+          new UserId($userMapper['id']),
+          new UserName($userMapper['name']), 
+          new Email($userMapper['email']), 
+          new HashedPassword($userMapper['password']));
   }
 
   private function notExistsUser(?array $user): bool
@@ -27,8 +30,8 @@ final class UserRepository
     return is_null($user);
   }
 
-  public function insert(UserName $name, Email $email, InputPassword $password): void
+  public function insert(NewUser $user): void
   {
-    $this->userDao->create($name, $email, $password);
+    $this->userDao->create($user->name, $user->email, $user->password);
   }
 }
