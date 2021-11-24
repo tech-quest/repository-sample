@@ -1,4 +1,5 @@
 <?php
+require_once(__DIR__ . '/../../UseCase/UseCaseOutput/SignUpOutput.php');
 
 /**
  * ユーザー登録ユースケース
@@ -39,9 +40,9 @@ final class SignUpInteractor
    */
   public function handler(): SignUpOutput
   {
-    $user = $this->findUser();
+    $userMapper = $this->findUser();
 
-    if ($this->existsUser($user)) {
+    if ($this->existsUser($userMapper)) {
       return new SignUpOutput(false, self::ALLREADY_EXISTS_MESSAGE);
     }
 
@@ -54,9 +55,9 @@ final class SignUpInteractor
    *
    * @return array
    */
-  private function findUser(): User
+  private function findUser(): ?array
   {
-    return $this->userDao->findByMail($this->input->email());
+    return $this->userDao->findByEmail($this->input->email());
   }
 
   /**
@@ -65,7 +66,7 @@ final class SignUpInteractor
    * @param array|null $user
    * @return boolean
    */
-  private function existsUser(?User $user): bool
+  private function existsUser(?array $user): bool
   {
     return !is_null($user);
   }
