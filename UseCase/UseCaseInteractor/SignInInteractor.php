@@ -55,7 +55,7 @@ final class SignInInteractor
             return new SignInOutput(false, self::FAILED_MESSAGE);
         }
 
-        $this->saveSession($user->id(), $user->name());
+        $this->saveSession($user);
 
         return new SignInOutput(true, self::SUCCESS_MESSAGE);
     }
@@ -63,7 +63,7 @@ final class SignInInteractor
     /**
      * ユーザーを入力されたメールアドレスで検索する
      * 
-     * @return User | null
+     * @return array | null
      */
     private function findUser(): ?User
     {
@@ -73,12 +73,21 @@ final class SignInInteractor
     /**
      * ユーザーが存在しない場合
      *
-     * @param User|null $user
+     * @param array|null $user
      * @return boolean
      */
     private function notExistsUser(?User $user): bool
     {
         return is_null($user);
+    }
+
+    private function buildUserEntity(array $user): User
+    {
+        return new User(
+            new UserId($user['id']), 
+            new UserName($user['name']), 
+            new Email($user['email']), 
+            new HashedPassword($user['password']));
     }
 
     /**
@@ -98,9 +107,9 @@ final class SignInInteractor
      * @param User $user
      * @return void
      */
-    private function saveSession(UserId $id, UserName $name): void
+    private function saveSession(User $user): void
     {
-        $_SESSION['user']['id'] = $id->value();
-        $_SESSION['user']['name'] = $name->value();
+        $_SESSION['user']['id'] = $user->id()->value();
+        $_SESSION['user']['name'] = $user->name()->value();
     }
 }

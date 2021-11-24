@@ -45,9 +45,9 @@ final class SignUpInteractor
    */
   public function handler(): SignUpOutput
   {
-    $user = $this->findUser();
+    $userMapper = $this->findUser();
 
-    if ($this->existsUser($user)) {
+    if ($this->existsUser($userMapper)) {
       return new SignUpOutput(false, self::ALLREADY_EXISTS_MESSAGE);
     }
 
@@ -71,7 +71,7 @@ final class SignUpInteractor
    * @param array|null $user
    * @return boolean
    */
-  private function existsUser(?User $user): bool
+  private function existsUser(?array $user): bool
   {
     return !is_null($user);
   }
@@ -84,9 +84,11 @@ final class SignUpInteractor
   private function signup(): void
   {
     $this->userRepository->insert(
-      $this->input->name(),
-      $this->input->email(),
-      $this->input->password()
+      new NewUser(
+        $this->input->name(),
+        $this->input->email(),
+        $this->input->password()
+      )
     );
   }
 }

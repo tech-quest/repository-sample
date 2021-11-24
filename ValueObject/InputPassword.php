@@ -11,7 +11,7 @@ final class InputPassword
    * 半角英小文字大文字数字をそれぞれ1種類以上含む8文字以上100文字以下の正規表現
    */
   const PASSWORD_REGULAR_EXPRESSIONS = "/\A(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)[a-zA-Z\d]{8,100}+\z/";
-
+  
   /**
    * パスワードの書式が不正な場合のエラーメッセージ
    */
