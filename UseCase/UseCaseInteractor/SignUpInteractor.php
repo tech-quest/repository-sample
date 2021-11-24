@@ -26,6 +26,7 @@ final class SignUpInteractor
 
   /**
    * ユーザー登録処理
+   * すでに存在するメールアドレスの場合はエラーとする
    *
    * @return SignUpOutput
    */

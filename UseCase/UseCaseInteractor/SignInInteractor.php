@@ -31,6 +31,7 @@ final class SignInInteractor
 
     /**
      * ログイン処理
+     * セッションへのユーザー情報を保存も行う
      * 
      * @return SignInOutput
      */

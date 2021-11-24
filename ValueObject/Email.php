@@ -5,10 +5,14 @@
  */
 final class Email
 {
-    private $value;
-
     const EMAIL_REGULAR_EXPRESSIONS = "/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/";
     const INVALID_MESSAGE = 'メールアドレスの形式が正しくありません';
+
+    /**
+     * @var string
+     */
+    private $value;
+
 
     /**
      * コンストラクタ
@@ -24,6 +28,9 @@ final class Email
       $this->value = $value;
     }
 
+    /**
+      * @return string
+     */
     public function value(): string
     {
       return $this->value;
