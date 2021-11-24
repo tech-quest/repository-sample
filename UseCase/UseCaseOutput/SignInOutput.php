@@ -16,7 +16,10 @@ final class SignInOutput
     private $message;
     
     /**
-     * @var User
+     * コンストラクタ
+     * 
+     * @param bool $isSuccess
+     * @param string $message
      */
     public function __construct(bool $isSuccess, string $message)
     {
@@ -24,11 +27,17 @@ final class SignInOutput
         $this->message = $message;
     }
     
+    /**
+     * @return boolean
+     */
     public function isSuccess(): bool
     {
       return $this->isSuccess;
     }
 
+    /**
+     * @return string
+     */
     public function message(): string
     {
       return $this->message;

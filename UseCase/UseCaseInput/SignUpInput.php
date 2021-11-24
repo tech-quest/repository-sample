@@ -34,16 +34,25 @@ final class SignUpInput
     $this->password = $password;
   }
 
+  /** 
+   * @return UserName
+   */
   public function name(): UserName
   {
     return $this->name;
   }
 
+  /**
+   * @return Email
+   */
   public function email(): Email
   {
     return $this->email;
   }
 
+  /**
+   * @return InputPassword
+   */
   public function password(): InputPassword
   {
     return $this->password;
