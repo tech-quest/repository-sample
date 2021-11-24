@@ -57,9 +57,9 @@ final class SignInInteractor
     /**
      * ユーザーを入力されたメールアドレスで検索する
      * 
-     * @return User
+     * @return User | null
      */
-    private function findUser(): User
+    private function findUser(): ?array
     {
         return $this->userDao->findByMail($this->input->email());
     }
@@ -70,7 +70,7 @@ final class SignInInteractor
      * @param User|null $user
      * @return boolean
      */
-    private function notExistsUser(?User $user): bool
+    private function notExistsUser(?array $user): bool
     {
         return is_null($user);
     }
