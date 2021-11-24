@@ -16,6 +16,11 @@ final class SignUpInteractor
   const COMPLETED_MESSAGE = "登録が完了しました";
 
   /**
+   * @var UserRepository
+   */
+  private $userRepository;
+
+  /**
    * @var SignUpInput
    */
   private $input;
@@ -27,7 +32,7 @@ final class SignUpInteractor
    */
   public function __construct(SignUpInput $input)
   {
-    $this->userDao = new UserDao();
+    $this->userRepository = new UserRepository();
     $this->input = $input;
   }
 
@@ -54,9 +59,9 @@ final class SignUpInteractor
    *
    * @return array
    */
-  private function findUser(): User
+  private function findUser(): ?User
   {
-    return $this->userDao->findByMail($this->input->email());
+    return $this->userRepository->findByMail($this->input->email());
   }
 
   /**
@@ -77,6 +82,10 @@ final class SignUpInteractor
    */
   private function signup(): void
   {
-    $this->userDao->create($this->input->name(), $this->input->email(), $this->input->password());
+    $this->userRepository->insert(
+      $this->input->name(),
+      $this->input->email(),
+      $this->input->password()
+    );
   }
 }

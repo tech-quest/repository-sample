@@ -16,9 +16,9 @@ final class SignInInteractor
     const SUCCESS_MESSAGE = "ログインしました";
 
     /**
-     * @var UserDao
+     * @var UserRepository
      */
-    private $userDao;
+    private $userRepository;
 
     /**
      * @var SignInInput
@@ -32,7 +32,7 @@ final class SignInInteractor
      */
     public function __construct(SignInInput $input)
     {
-        $this->userDao = new UserDao();
+        $this->userRepository = new UserRepository();
         $this->input = $input;
     }
 
@@ -50,8 +50,6 @@ final class SignInInteractor
             return new SignInOutput(false, self::FAILED_MESSAGE);
         }
 
-        $user = new User(new UserId($user['id']), new UserName($user['name']), new Email($user['email']), new HashedPassword($user['password']));
-
         if ($this->isInvalidPassword($user->password())) {
             return new SignInOutput(false, self::FAILED_MESSAGE);
         }
@@ -66,9 +64,9 @@ final class SignInInteractor
      * 
      * @return User | null
      */
-    private function findUser(): ?array
+    private function findUser(): ?User
     {
-        return $this->userDao->findByMail($this->input->email());
+        return $this->userRepository->findByEmail($this->input->email());
     }
 
     /**
@@ -77,7 +75,7 @@ final class SignInInteractor
      * @param User|null $user
      * @return boolean
      */
-    private function notExistsUser(?array $user): bool
+    private function notExistsUser(?User $user): bool
     {
         return is_null($user);
     }
