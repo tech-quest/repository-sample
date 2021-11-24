@@ -32,6 +32,6 @@ final class UserRepository
 
   public function insert(NewUser $user): void
   {
-    $this->userDao->create(NewUser $user);
+    $this->userDao->create($user);
   }
 }
