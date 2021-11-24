@@ -30,21 +30,19 @@ final class UserDao
 
 	/**
 	 * ユーザーを追加する
-	 * @param  UserName $name
-	 * @param  Email $email
-	 * @param  InputPassword $password
+	 * @param  NewUser $user
 	 */
-	public function create(UserName $name, Email $email, InputPassword $password): void
+	public function create(NewUser $user): void
 	{
-		$hashedPassword = $password->hash();
+		$hashedPassword = $user->password->hash();
 
 		$sql = sprintf(
 			"INSERT INTO %s (name, email, password) VALUES (:name, :email, :password)",
 			self::TABLE_NAME
 		);
 		$statement = $this->pdo->prepare($sql);
-		$statement->bindValue(':name', $name->value(), PDO::PARAM_STR);
-		$statement->bindValue(':email', $email->value(), PDO::PARAM_STR);
+		$statement->bindValue(':name', $user->name->value(), PDO::PARAM_STR);
+		$statement->bindValue(':email', $user->email->value(), PDO::PARAM_STR);
 		$statement->bindValue(':password', $hashedPassword->value(), PDO::PARAM_STR);
 		$statement->execute();
 	}
