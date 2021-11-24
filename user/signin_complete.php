@@ -13,7 +13,7 @@ $password = filter_input(INPUT_POST, 'password');
 
 if (empty($email) || empty($password)) {
     $_SESSION['errors'][] = "パスワードとメールアドレスを入力してください";
-    redirect("./user/signin.php");
+    redirect("./signin.php");
 }
 
 $userEmail = new Email($email);
@@ -26,5 +26,5 @@ if ($useCaseOutput->isSuccess()) {
     redirect("../index.php");
 } else {
     $_SESSION['errors'][] = $useCaseOutput->message();
-    redirect("./user/signin.php");
+    redirect("./signin.php");
 }
