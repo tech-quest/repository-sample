@@ -27,7 +27,6 @@ final class UserId
     }
 
     /**
-     * 
      * @return int
      */
     public function value(): int
