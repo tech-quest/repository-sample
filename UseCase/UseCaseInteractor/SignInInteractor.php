@@ -50,13 +50,13 @@ final class SignInInteractor
             return new SignInOutput(false, self::FAILED_MESSAGE);
         }
 
-        $hashedPassword = new HashedPassword($user['password']);
+        $user = new User(new UserId($user['id']), new UserName($user['name']), new Email($user['email']), new HashedPassword($user['password']));
 
-        if ($this->isInvalidPassword($hashedPassword)) {
+        if ($this->isInvalidPassword($user->password())) {
             return new SignInOutput(false, self::FAILED_MESSAGE);
         }
 
-        $this->saveSession($user);
+        $this->saveSession($user->id(), $user->name());
 
         return new SignInOutput(true, self::SUCCESS_MESSAGE);
     }
@@ -99,9 +99,9 @@ final class SignInInteractor
      * @param User $user
      * @return void
      */
-    private function saveSession(User $user): void
+    private function saveSession(UserId $id, UserName $name): void
     {
-        $_SESSION['user']['id'] = $user->id()->value();
-        $_SESSION['user']['name'] = $user->name()->value();
+        $_SESSION['user']['id'] = $id->value();
+        $_SESSION['user']['name'] = $name->value();
     }
 }
