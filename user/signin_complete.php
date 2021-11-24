@@ -1,8 +1,11 @@
 <?php
 require_once(__DIR__ . '/../dao/UserDao.php');
-require_once(__DIR__ . '../UseCase/UseCaseInput/SignInInput.php');
-require_once(__DIR__ . '../UseCase/UseCaseInteractor/SignInInteractor.php');
+require_once(__DIR__ . '/../UseCase/UseCaseInput/SignInInput.php');
+require_once(__DIR__ . '/../UseCase/UseCaseInteractor/SignInInteractor.php');
 require_once(__DIR__ . '/../utils/redirect.php');
+require_once(__DIR__ . '/../ValueObject/Email.php');
+require_once(__DIR__ . '/../ValueObject/InputPassword.php');
+require_once(__DIR__ . '/../UseCase/UseCaseInput/SignInInput.php');
 
 session_start();
 $mail = filter_input(INPUT_POST, 'mail');

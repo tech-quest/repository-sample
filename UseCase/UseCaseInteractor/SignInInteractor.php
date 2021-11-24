@@ -1,5 +1,6 @@
-<?php 
-
+<?php
+require_once(__DIR__ . '/../../Repository/UserRepository.php');
+require_once(__DIR__ . '/../../UseCase/UseCaseOutput/SignInOutput.php');
 /**
  * ログインユースケース
  */

@@ -1,5 +1,6 @@
 <?php
-
+require_once(__DIR__ . '/../../Repository/UserRepository.php');
+require_once(__DIR__ . '/../../UseCase/UseCaseOutput/SignUpOutput.php');
 /**
  * ユーザー登録ユースケース
  */
@@ -61,7 +62,7 @@ final class SignUpInteractor
    */
   private function findUser(): ?User
   {
-    return $this->userRepository->findByMail($this->input->email());
+    return $this->userRepository->findByEmail($this->input->email());
   }
 
   /**

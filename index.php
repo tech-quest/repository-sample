@@ -1,7 +1,7 @@
 <?php
 require_once(__DIR__ . '/utils/redirect.php');
 session_start();
-if (!isset($_SESSION["user"]['id'])) redirect("/dao-sample/user/signin.php");
+if (!isset($_SESSION["user"]['id'])) redirect("./user/signin.php");
 ?>
 
 <!DOCTYPE html>

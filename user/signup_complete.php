@@ -1,6 +1,11 @@
 <?php
 require_once(__DIR__ . '/../dao/UserDao.php');
 require_once(__DIR__ . '/../utils/redirect.php');
+require_once(__DIR__ . '/../ValueObject/User/UserName.php');
+require_once(__DIR__ . '/../ValueObject/Email.php');
+require_once(__DIR__ . '/../ValueObject/InputPassword.php');
+require_once(__DIR__ . '/../UseCase/UseCaseInput/SignUpInput.php');
+require_once(__DIR__ . '/../UseCase/UseCaseInteractor/SignUpInteractor.php');
 
 $mail = filter_input(INPUT_POST, 'mail');
 $userName = filter_input(INPUT_POST, 'userName');
@@ -14,7 +19,7 @@ if ($password !== $confirmPassword) $_SESSION['errors'][] = "パスワードが�
 if (!empty($_SESSION['errors'])) {
   $_SESSION['user']['name'] = $userName;
   $_SESSION['user']['mail'] = $mail;
-  redirect('/dao-sample/user/signup.php');
+  redirect('./signup.php');
 }
 
 $userName = new UserName($userName);
@@ -26,8 +31,8 @@ $useCaseOutput = $useCase->handler();
 
 if ($useCaseOutput->isSuccess()) {
   $_SESSION['message'] = $useCaseOutput->message();
-  redirect('/dao-sample/user/signin.php');
+  redirect('./signin.php');
 }  else {
   $_SESSION['errors'][] = $useCaseOutput->message();
-  redirect('/dao-sample/user/signup.php');
+  redirect('./signup.php');
 }
