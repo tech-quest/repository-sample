@@ -5,6 +5,9 @@
  */
 final class UserDao
 {
+	/**
+	 * DBのテーブル名
+	 */
 	const TABLE_NAME = 'users';
 
 	/**
@@ -51,7 +54,7 @@ final class UserDao
 	 * @param  Email $mail
 	 * @return array | null
 	 */
-	public function findByMail(Email $mail): ?User
+	public function findByMail(Email $mail): ?array
 	{
 		$sql = sprintf(
 			"SELECT * FROM %s WHERE mail = :mail",

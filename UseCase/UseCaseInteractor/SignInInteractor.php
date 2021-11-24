@@ -5,7 +5,14 @@
  */
 final class SignInInteractor
 {
+    /**
+     * ログイン失敗時のエラーメッセージ
+     */
     const FAILED_MESSAGE = "メールアドレスまたは<br />パスワードが間違っています";
+
+    /**
+     * ログイン成功時のメッセージ
+     */
     const SUCCESS_MESSAGE = "ログインしました";
 
     /**
@@ -31,7 +38,7 @@ final class SignInInteractor
 
     /**
      * ログイン処理
-     * セッションへのユーザー情報を保存も行う
+     * セッションへのユーザー情報の保存も行う
      * 
      * @return SignInOutput
      */
@@ -43,13 +50,13 @@ final class SignInInteractor
             return new SignInOutput(false, self::FAILED_MESSAGE);
         }
 
-        $hashedPassword = new HashedPassword($user['password']);
+        $user = new User(new UserId($user['id']), new UserName($user['name']), new Email($user['email']), new HashedPassword($user['password']));
 
-        if ($this->isInvalidPassword($hashedPassword)) {
+        if ($this->isInvalidPassword($user->password())) {
             return new SignInOutput(false, self::FAILED_MESSAGE);
         }
 
-        $this->saveSession($user);
+        $this->saveSession($user->id(), $user->name());
 
         return new SignInOutput(true, self::SUCCESS_MESSAGE);
     }
@@ -57,9 +64,9 @@ final class SignInInteractor
     /**
      * ユーザーを入力されたメールアドレスで検索する
      * 
-     * @return User
+     * @return User | null
      */
-    private function findUser(): User
+    private function findUser(): ?array
     {
         return $this->userDao->findByMail($this->input->email());
     }
@@ -70,7 +77,7 @@ final class SignInInteractor
      * @param User|null $user
      * @return boolean
      */
-    private function notExistsUser(?User $user): bool
+    private function notExistsUser(?array $user): bool
     {
         return is_null($user);
     }
@@ -92,9 +99,9 @@ final class SignInInteractor
      * @param User $user
      * @return void
      */
-    private function saveSession(User $user): void
+    private function saveSession(UserId $id, UserName $name): void
     {
-        $_SESSION['user']['id'] = $user->id()->value();
-        $_SESSION['user']['name'] = $user->name()->value();
+        $_SESSION['user']['id'] = $id->value();
+        $_SESSION['user']['name'] = $name->value();
     }
 }
