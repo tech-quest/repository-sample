@@ -25,10 +25,6 @@ final class SignUpOutput
     {
         $this->isSuccess = $isSuccess;
         $this->message = $message;
-
-        if (!$isSuccess) {
-            $_SESSION['errors'][] = $message;
-        }
     }
 
     /**

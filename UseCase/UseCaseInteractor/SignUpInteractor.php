@@ -1,6 +1,6 @@
 <?php
+require_once(__DIR__ . '/../../Repository/UserRepository.php');
 require_once(__DIR__ . '/../../UseCase/UseCaseOutput/SignUpOutput.php');
-
 /**
  * ユーザー登録ユースケース
  */
@@ -17,6 +17,11 @@ final class SignUpInteractor
   const COMPLETED_MESSAGE = "登録が完了しました";
 
   /**
+   * @var UserRepository
+   */
+  private $userRepository;
+
+  /**
    * @var SignUpInput
    */
   private $input;
@@ -28,7 +33,7 @@ final class SignUpInteractor
    */
   public function __construct(SignUpInput $input)
   {
-    $this->userDao = new UserDao();
+    $this->userRepository = new UserRepository();
     $this->input = $input;
   }
 
@@ -55,9 +60,9 @@ final class SignUpInteractor
    *
    * @return array
    */
-  private function findUser(): ?array
+  private function findUser(): ?User
   {
-    return $this->userDao->findByEmail($this->input->email());
+    return $this->userRepository->findByEmail($this->input->email());
   }
 
   /**
@@ -78,6 +83,12 @@ final class SignUpInteractor
    */
   private function signup(): void
   {
-    $this->userDao->create($this->input->name(), $this->input->email(), $this->input->password());
+    $this->userRepository->insert(
+      new NewUser(
+        $this->input->name(),
+        $this->input->email(),
+        $this->input->password()
+      )
+    );
   }
 }

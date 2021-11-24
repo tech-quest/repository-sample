@@ -1,7 +1,6 @@
 <?php
+require_once(__DIR__ . '/../../Repository/UserRepository.php');
 require_once(__DIR__ . '/../../UseCase/UseCaseOutput/SignInOutput.php');
-require_once(__DIR__ . '/../../Entity/User.php');
-
 /**
  * ログインユースケース
  */
@@ -18,9 +17,9 @@ final class SignInInteractor
     const SUCCESS_MESSAGE = "ログインしました";
 
     /**
-     * @var UserDao
+     * @var UserRepository
      */
-    private $userDao;
+    private $userRepository;
 
     /**
      * @var SignInInput
@@ -34,7 +33,7 @@ final class SignInInteractor
      */
     public function __construct(SignInInput $input)
     {
-        $this->userDao = new UserDao();
+        $this->userRepository = new UserRepository();
         $this->input = $input;
     }
 
@@ -46,13 +45,11 @@ final class SignInInteractor
      */
     public function handler(): SignInOutput
     {
-        $userMapper = $this->findUser();
+        $user = $this->findUser();
 
-        if ($this->notExistsUser($userMapper)) {
+        if ($this->notExistsUser($user)) {
             return new SignInOutput(false, self::FAILED_MESSAGE);
         }
-
-        $user = $this->buildUserEntity($userMapper);
 
         if ($this->isInvalidPassword($user->password())) {
             return new SignInOutput(false, self::FAILED_MESSAGE);
@@ -68,9 +65,9 @@ final class SignInInteractor
      * 
      * @return array | null
      */
-    private function findUser(): ?array
+    private function findUser(): ?User
     {
-        return $this->userDao->findByEmail($this->input->email());
+        return $this->userRepository->findByEmail($this->input->email());
     }
 
     /**
@@ -79,7 +76,7 @@ final class SignInInteractor
      * @param array|null $user
      * @return boolean
      */
-    private function notExistsUser(?array $user): bool
+    private function notExistsUser(?User $user): bool
     {
         return is_null($user);
     }
