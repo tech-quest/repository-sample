@@ -1,7 +1,7 @@
 <?php
 
 /**
- * ユーザー登録ユースケースの返り値
+ * ユーザー登録ユースケースの出力値
  */
 final class SignUpOutput
 {
@@ -31,12 +31,17 @@ final class SignUpOutput
         }
     }
 
-
+    /**
+     * @return boolean
+     */
     public function isSuccess(): bool
     {
       return $this->isSuccess;
     }
 
+    /**
+     * @return string
+     */
     public function message(): string
     {
       return $this->message;

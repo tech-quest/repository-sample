@@ -31,6 +31,7 @@ final class SignInInteractor
 
     /**
      * ログイン処理
+     * セッションへのユーザー情報を保存も行う
      * 
      * @return SignInOutput
      */
@@ -56,9 +57,9 @@ final class SignInInteractor
     /**
      * ユーザーを入力されたメールアドレスで検索する
      * 
-     * @return array
+     * @return User
      */
-    private function findUser(): array
+    private function findUser(): User
     {
         return $this->userDao->findByMail($this->input->email());
     }
@@ -66,10 +67,10 @@ final class SignInInteractor
     /**
      * ユーザーが存在しない場合
      *
-     * @param array|null $user
+     * @param User|null $user
      * @return boolean
      */
-    private function notExistsUser(?array $user): bool
+    private function notExistsUser(?User $user): bool
     {
         return is_null($user);
     }
@@ -88,12 +89,12 @@ final class SignInInteractor
     /**
      * セッションの保存処理
      *
-     * @param array $user
+     * @param User $user
      * @return void
      */
-    private function saveSession(array $user): void
+    private function saveSession(User $user): void
     {
-        $_SESSION['user']['id'] = $user['id'];
-        $_SESSION['user']['name'] = $user['name'];
+        $_SESSION['user']['id'] = $user->id()->value();
+        $_SESSION['user']['name'] = $user->name()->value();
     }
 }

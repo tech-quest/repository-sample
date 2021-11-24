@@ -26,6 +26,7 @@ final class SignUpInteractor
 
   /**
    * ユーザー登録処理
+   * すでに存在するメールアドレスの場合はエラーとする
    *
    * @return SignUpOutput
    */
@@ -33,7 +34,7 @@ final class SignUpInteractor
   {
     $user = $this->findUser();
 
-    if ($this->isExistsUser($user)) {
+    if ($this->existsUser($user)) {
       return new SignUpOutput(false, self::ALLREADY_EXISTS_MESSAGE);
     }
 
@@ -46,7 +47,7 @@ final class SignUpInteractor
    *
    * @return array
    */
-  private function findUser(): array
+  private function findUser(): User
   {
     return $this->userDao->findByMail($this->input->email());
   }
@@ -57,7 +58,7 @@ final class SignUpInteractor
    * @param array|null $user
    * @return boolean
    */
-  private function isExistsUser(?array $user): bool
+  private function existsUser(?User $user): bool
   {
     return !is_null($user);
   }

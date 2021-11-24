@@ -7,6 +7,9 @@ final class UserName
 {
   const INVALID_MESSAGE = 'ユーザー名は20文字以下でお願いします！';
 
+  /**
+   * @var string
+   */
   private $value;
 
   /**
@@ -23,6 +26,9 @@ final class UserName
     $this->value = $value;
   }
 
+  /**
+   * @return string
+   */
   public function value(): string
   {
     return $this->value;
