@@ -5,8 +5,14 @@
  */
 final class HashedPassword
 {
+    /**
+     * パスワードが不正な場合のエラーメッセージ
+     */
     const INVALID_MESSAGE = 'パスワードの形式が正しくありません';
 
+    /**
+     * @var string
+     */
     private $value;
 
     /**

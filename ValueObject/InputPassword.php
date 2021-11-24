@@ -5,8 +5,14 @@
  */
 final class InputPassword
 {
-  
+  /**
+   * パスワードの書式の正規表現
+   */
   const PASSWORD_REGULAR_EXPRESSIONS = "^(?=.*[A-Z])[a-zA-Z0-9.?/-]{8,24}$";
+
+  /**
+   * パスワードの書式が不正な場合のエラーメッセージ
+   */
   const INVALID_MESSAGE = "パスワードの形式が正しくありません";
 
   /**

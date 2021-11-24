@@ -5,7 +5,14 @@
  */
 final class SignInInteractor
 {
+    /**
+     * ログイン失敗時のエラーメッセージ
+     */
     const FAILED_MESSAGE = "メールアドレスまたは<br />パスワードが間違っています";
+
+    /**
+     * ログイン成功時のメッセージ
+     */
     const SUCCESS_MESSAGE = "ログインしました";
 
     /**
@@ -31,7 +38,7 @@ final class SignInInteractor
 
     /**
      * ログイン処理
-     * セッションへのユーザー情報を保存も行う
+     * セッションへのユーザー情報の保存も行う
      * 
      * @return SignInOutput
      */
