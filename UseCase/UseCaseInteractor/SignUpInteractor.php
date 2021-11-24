@@ -34,7 +34,7 @@ final class SignUpInteractor
   {
     $user = $this->findUser();
 
-    if ($this->isExistsUser($user)) {
+    if ($this->existsUser($user)) {
       return new SignUpOutput(false, self::ALLREADY_EXISTS_MESSAGE);
     }
 
@@ -58,7 +58,7 @@ final class SignUpInteractor
    * @param array|null $user
    * @return boolean
    */
-  private function isExistsUser(?User $user): bool
+  private function existsUser(?User $user): bool
   {
     return !is_null($user);
   }
