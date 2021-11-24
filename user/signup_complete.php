@@ -1,6 +1,12 @@
 <?php
 require_once(__DIR__ . '/../dao/UserDao.php');
 require_once(__DIR__ . '/../utils/redirect.php');
+require_once(__DIR__ . '/../ValueObject/User/UserName.php');
+require_once(__DIR__ . '/../ValueObject/Email.php');
+require_once(__DIR__ . '/../ValueObject/InputPassword.php');
+require_once(__DIR__ . '/../UseCase/UseCaseInput/SignUpInput.php');
+require_once(__DIR__ . '/../UseCase/UseCaseInteractor/SignUpInteractor.php');
+
 
 $email = filter_input(INPUT_POST, 'email');
 $userName = filter_input(INPUT_POST, 'userName');

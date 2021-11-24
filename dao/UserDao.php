@@ -54,7 +54,7 @@ final class UserDao
 	 * @param  Email $email
 	 * @return array | null
 	 */
-	public function findByMail(Email $email): ?array
+	public function findByEmail(Email $email): ?array
 	{
 		$sql = sprintf(
 			"SELECT * FROM %s WHERE email = :email",

@@ -1,4 +1,6 @@
-<?php 
+<?php
+require_once(__DIR__ . '/../../UseCase/UseCaseOutput/SignInOutput.php');
+require_once(__DIR__ . '/../../Entity/User.php');
 
 /**
  * ログインユースケース
@@ -64,11 +66,11 @@ final class SignInInteractor
     /**
      * ユーザーを入力されたメールアドレスで検索する
      * 
-     * @return User | null
+     * @return array | null
      */
     private function findUser(): ?array
     {
-        return $this->userDao->findByMail($this->input->email());
+        return $this->userDao->findByEmail($this->input->email());
     }
 
     /**
@@ -110,7 +112,7 @@ final class SignInInteractor
      */
     private function saveSession(User $user): void
     {
-        $_SESSION['user']['id'] = $user->id->value();
-        $_SESSION['user']['name'] = $user->name->value();
+        $_SESSION['user']['id'] = $user->id()->value();
+        $_SESSION['user']['name'] = $user->name()->value();
     }
 }

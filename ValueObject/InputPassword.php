@@ -1,4 +1,5 @@
 <?php
+require_once(__DIR__ . '/HashedPassword.php');
 
 /**
  * ユーザーが入力したパスワード用のValueObject
@@ -7,9 +8,9 @@ final class InputPassword
 {
   /**
    * パスワードの書式の正規表現
+   * 半角英小文字大文字数字をそれぞれ1種類以上含む8文字以上100文字以下の正規表現
    */
-  const PASSWORD_REGULAR_EXPRESSIONS = "^(?=.*[A-Z])[a-zA-Z0-9.?/-]{8,24}$";
-
+  const PASSWORD_REGULAR_EXPRESSIONS = "/\A(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)[a-zA-Z\d]{8,100}+\z/";
   /**
    * パスワードの書式が不正な場合のエラーメッセージ
    */
