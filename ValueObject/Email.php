@@ -5,7 +5,14 @@
  */
 final class Email
 {
+    /**
+     * メールアドレスの書式の正規表現
+     */
     const EMAIL_REGULAR_EXPRESSIONS = "/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/";
+
+    /**
+     * メールアドレスの書式が不正な場合のエラーメッセージ
+     */
     const INVALID_MESSAGE = 'メールアドレスの形式が正しくありません';
 
     /**

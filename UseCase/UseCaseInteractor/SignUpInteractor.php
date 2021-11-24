@@ -5,7 +5,14 @@
  */
 final class SignUpInteractor
 {
+  /**
+   * メールアドレスがすでに存在している場合のエラーメッセージ
+   */
   const ALLREADY_EXISTS_MESSAGE = "すでに登録済みのメールアドレスです";
+
+  /**
+   * ユーザー登録成功時のメッセージ
+   */
   const COMPLETED_MESSAGE = "登録が完了しました";
 
   /**

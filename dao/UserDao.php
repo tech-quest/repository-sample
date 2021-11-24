@@ -5,6 +5,9 @@
  */
 final class UserDao
 {
+	/**
+	 * DBのテーブル名
+	 */
 	const TABLE_NAME = 'users';
 
 	/**
