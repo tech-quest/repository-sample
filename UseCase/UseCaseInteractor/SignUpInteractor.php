@@ -1,6 +1,7 @@
 <?php
 require_once(__DIR__ . '/../../Repository/UserRepository.php');
 require_once(__DIR__ . '/../../UseCase/UseCaseOutput/SignUpOutput.php');
+require_once(__DIR__ . '/../../ValueObject/User/NewUser.php');
 /**
  * ユーザー登録ユースケース
  */
