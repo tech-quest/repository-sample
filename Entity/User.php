@@ -30,6 +30,14 @@ final class User
      */
     private $password;
 
+    /**
+     * コンストラクタ
+     *
+     * @param UserId $id
+     * @param UserName $name
+     * @param Email $email
+     * @param HashedPassword $password
+     */
     public function __construct(
         UserId $id,
         UserName $name,
@@ -42,21 +50,33 @@ final class User
         $this->password = $password;
     }
 
+    /**
+     * @return UserId
+     */
     public function id(): UserId
     {
         return $this->id;
     }
 
+    /**
+     * @return UserName
+     */
     public function name(): UserName
     {
         return $this->name;
     }
 
+    /**
+     * @return Email
+     */
     public function email(): Email
     {
         return $this->email;
     }
 
+    /**
+     * @return HashedPassword
+     */
     public function password(): HashedPassword
     {
         return $this->password;
