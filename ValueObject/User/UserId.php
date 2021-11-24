@@ -5,6 +5,7 @@
  */
 final class UserId
 {
+    const MIN_VALUE = 1;
     const INVALID_MESSAGE = '不正な値です';
 
     /**
@@ -12,7 +13,12 @@ final class UserId
      */
     private $value;
 
-    public function __construct(string $value)
+    /**
+     * コンストラクタ
+     * 
+     * @param int $value
+     */
+    public function __construct(int $value)
     {
         if ($this->isInvalid($value)) {
             throw new Exception(self::INVALID_MESSAGE);
@@ -20,19 +26,23 @@ final class UserId
         $this->value = $value;
     }
 
-    public function value(): string
+    /**
+     * 
+     * @return int
+     */
+    public function value(): int
     {
         return $this->value;
     }
 
     /**
-     * 正の整数かどうかを判定する
+     * 1以上かどうかを判定する
      *
      * @param string $value
      * @return boolean
      */
-    private function isInvalid(string $value): bool
+    private function isInvalid(int $value): bool
     {
-        return !preg_match('\+?[1-9][0-9]*', $value);
+        return $value < self::MIN_VALUE;
     }
 }
