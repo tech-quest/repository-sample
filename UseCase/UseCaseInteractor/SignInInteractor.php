@@ -44,13 +44,13 @@ final class SignInInteractor
      */
     public function handler(): SignInOutput
     {
-        $user = $this->findUser();
+        $userMapper = $this->findUser();
 
-        if ($this->notExistsUser($user)) {
+        if ($this->notExistsUser($userMapper)) {
             return new SignInOutput(false, self::FAILED_MESSAGE);
         }
 
-        $user = $this->buildUserEntity($user);
+        $user = $this->buildUserEntity($userMapper);
 
         if ($this->isInvalidPassword($user->password())) {
             return new SignInOutput(false, self::FAILED_MESSAGE);
