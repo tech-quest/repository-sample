@@ -14,7 +14,7 @@ final class UserRepository
 
   public function findByEmail(Email $email): ?User
   {
-    $userMapper = $this->userDao->findByMail($email);
+    $userMapper = $this->userDao->findByEmail($email);
 
     return ($this->notExistsUser($userMapper)) 
       ? null 
