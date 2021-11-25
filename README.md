@@ -1,5 +1,14 @@
 # blog
 
+## Repositoryとは？
+- EntityとDaoの間に存在するObject
+- Repository(書き込み処理)
+- 主な役割は下記
+  * DBとのやり取りをしやすくする
+  * APIとのやり取りをしやすくする
+  * CSVファイルとのやり取りをしやすくする
+- DBに保存しやすい形にする(value objectをむくなど)
+- Entityを永続化する存在(完了未完了を0と1で表しているのは、Domainは知らなくて良い。そのつじつまを合わせるのがRepositoryの仕事)
 ## SQL文
 
 CREATE DATABASE blog;
