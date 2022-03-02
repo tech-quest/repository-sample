@@ -11,7 +11,7 @@ final class UserDao
 	const TABLE_NAME = 'users';
 
 	/**
-	 * @var [type]
+	 * @var PDO
 	 */
 	private $pdo;
 
